@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="main-content">
+    <div class="left-container">
+      <div class="title-container">
+        <h1>Classify CT Scans of the Brain</h1>
+      </div>
+      <div class="description">
+          <p>
+            This is a website where you can classify CT scan images of the brain,
+            by letting a Convolutional Neural Network decide if there is a tumor.
+            If there turns out to be a tumor in the brain the image is
+            depicting, the model will try to classify the tumor as one of the
+            following types:
+            <ul>
+              <li>
+                Meningioma
+              </li>
+              <li>
+                Glioma
+              </li>
+              <li>
+                Pituitary
+              </li>
+            </ul>
+          </p>
+      </div>
+    </div>
+    <div class="right-container">
+      <div class="top-container">
+        <div class="title-container">
+          <h2>Enter image</h2>
+        </div>
+        <div class="new-image-container">
+          <input type="file" id="pic">
+          <div class="submit-container">
+            <button id="submit-button">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div class="result-container">
+        <div id="result-text-container">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
