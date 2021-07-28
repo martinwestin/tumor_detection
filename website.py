@@ -13,6 +13,9 @@ class_names = list(image_processing.CLASS_NAMES.keys())
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+with open("symptoms.txt", "r") as f:
+    symptoms = f.read().split("\n\n")
+
 
 def classify_new_image(path):
     image = image_processing.Img(path, (image_processing.IMAGE_WIDTH, image_processing.IMAGE_HEIGHT))
@@ -34,7 +37,11 @@ def classify_image(msg):
     img = msg["data"]
     img_id = db_models.add_image(img)
     rv = classify_new_image(image_processing.Img.fetch_path(img_id))
-    emit("classification_response", {"result": " ".join(rv.split("_")).title()}, room=request.sid)
+    condition_symptoms = ""
+    if rv != "no_tumor":
+        condition_symptoms = symptoms[list(filter(lambda x: x != "no_tumor", class_names)).index(rv)]
+
+    emit("classification_response", {"result": " ".join(rv.split("_")).title(), "symptoms": condition_symptoms}, room=request.sid)
     db_models.remove(img_id)
 
 

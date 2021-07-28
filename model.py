@@ -17,14 +17,12 @@ y_test = np.array(list(map(lambda x: class_names.index(x), y_test)))
 model = None
 
 x_test = x_test.reshape(x_test.shape[0], IMAGE_WIDTH, IMAGE_HEIGHT, 1)
-print(x_test.shape)
 
 
 def process_data():
     global x_train, y_train
     variate_train_images = data.modify_images(x_train, y_train)
     x_train, y_train = variate_train_images[0], variate_train_images[1]
-    print(x_train.shape, y_train.shape)
 
 
 def new_model():
