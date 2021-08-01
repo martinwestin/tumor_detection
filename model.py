@@ -40,7 +40,7 @@ def new_model():
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(64, activation="relu"))
     model.add(tf.keras.layers.Dense(128, activation="relu"))
-    model.add(tf.keras.layers.Dense(10))
+    model.add(tf.keras.layers.Dense(4))
 
     model.compile(optimizer="adam",
                   loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -48,7 +48,6 @@ def new_model():
 
     history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test))
     model.save("model.h5")
-    return history.history["accuracy"]
 
 
 def ask_retrain_model():
